@@ -1,0 +1,693 @@
+/* Make Blank Page */
+:root{
+  --primary: #fff;
+  --bg-color: rgb(50, 35, 62);
+  --bg-envelope-color: #f5edd1;
+  --envelope-tab: #c6e0f4;
+  --envelope-cover: #24314f;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --txt-color: #444;
+  --seal-ocean: rgb(252, 8, 231);
+}
+
+html { scrollbar-gutter: stable;
+}
+
+/* Add color to body */
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #f3eee6;
+  overflow-y: scroll;
+}
+
+/* CREATE THE ENVELOPE */
+
+/* Make container */
+.container {
+  min-height: auto;
+  margin-top: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: scale(1.33);
+}
+
+
+/* Make envelope */
+.envelope-wrapper {
+  position: absolute;
+  top: 500px;
+  left: calc(50% - 250px);
+  transform: none;
+  align-items: center;
+  width: 500px;
+  height: 334px;
+  filter: drop-shadow(0 30px 45px rgba(0, 0, 0, 0.35));
+  perspective: 1200px;
+  transform-style: preserve-3d;
+ 
+  z-index: 10;
+}
+
+/* Contact shadow */
+
+.envelope-wrapper::after {
+  content: "";
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  width: 380px;
+  height: 40px;
+  background: radial-gradient(
+    ellipse,
+    rgba(0,0,0,0.35),
+    transparent 70%
+  );
+  transform: translateX(-50%);
+}
+
+.envelope {
+  position: absolute;
+  width: 500px;
+  height: 334px;
+  overflow: visible;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,0.35),
+      rgba(0,0,0,0.05)
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,0.04) 0px,
+      rgba(255,255,255,0.04) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    var(--bg-envelope-color);
+
+  border-radius: 6px;
+}
+
+/* Bottom of envelope */
+
+.envelope::after {
+  content: ' ';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+
+  width: 0;
+  height: 0;
+
+  border-left: 250px solid var(--envelope-cover);
+  border-right: 250px solid var(--envelope-cover);
+  border-bottom: 104px solid var(--envelope-cover);
+
+  border-top: 230px solid transparent;
+ 
+  filter: drop-shadow(0 -6px 8px rgba(0, 0, 0, 0.35));
+
+ box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.35),
+    inset 0 -3px 6px rgba(0,0,0,0.45);
+}
+
+/* Front of envelope */
+
+.envelope-front-shape {
+  position: absolute;
+  inset: 0;
+
+  clip-path: polygon(
+    40% 50%,
+    60% 50%,
+    100% 100%,
+    0 100%
+  );
+
+  background: 
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.15),
+      rgba(0, 0, 0, 0.18)
+    ),
+    var(--envelope-cover);
+
+    transform: translateZ(2px);
+
+  box-shadow: 
+    0 2px 3px rgba(0, 0, 0, 0.45),
+    0 -1px 0 rgba(255, 255, 255, 0.25);
+
+  z-index: 4;
+}
+
+
+/* Scroll stage control timing */
+
+.stage {
+  min-height: 35vh;
+  display: flex;
+  justify-content: center;
+}
+
+.stage-envelope {
+  position: relative;
+  align-items: center;
+  padding-top: 250px;
+}
+
+.stage-back,
+.stage-rsvp {
+  align-items: center;
+  padding-top: 50vh;
+}
+
+.stage-rsvp {
+  padding-top: 30vh;
+  padding-bottom: 20vh;
+}
+
+/* BACK OF ENVELOPE (STATIC) */
+
+.stage-back {
+  position: relative;
+  display: flex;
+  z-index: 1;
+  }
+
+.envelope-back-standalone {
+  width: 500px;
+  height: 334px;
+  background: #c6e0f4;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.35),
+    inset 0 0 0 1px rgba(0,0,0,0.12);
+
+  border-radius: 4px;
+}
+
+/* Create inside of envelope */
+
+.envelope-inside {
+  position: absolute;
+  inset: 1px;
+  background:
+  linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.18),
+    rgba(255,255,255,0.05)
+  ),
+  #c73a52; /*c6e0f4*/
+  box-shadow: 
+    inset 0 20px 30px rgba(0, 0, 0, 0.08)
+    inset 0 25px 35px rgba(0,0,0,0.35),
+    inset 0 -10px 15px rgba(255,255,255,0.15);
+  z-index: 1;
+  opacity: 0;
+  transform: translateZ(2px);
+  transition: opacity 0.6s ease 2s;
+  backface-visibility: hidden;
+}
+ 
+/* Invitation Card */
+
+.invite-card {
+  position: absolute;
+  bottom: 82px;
+  left: 50%;
+  width: 400px;
+  height: 0px;
+
+  background: #fff;
+  border-radius: 6px;
+
+  transform: translateX(-50%) translateY(50px);
+  transition: height 1.5s ease-in-out 2.6s;
+  transition-delay: 2.0s ease-out;
+
+  box-shadow: 
+    0 20px 40px rgba(0,0,0,0.25),
+    inset 0 0 0 1px rgba(0,0,0,0.08);
+
+  z-index: 8;
+}
+
+/* Card slides out when envelope opens */
+
+.envelope-wrapper.flap .invite-card {
+  transform: translateX(-50%) translateY(2%); 
+  height: 530px;
+  overflow: hidden;
+}
+
+.envelope-wrapper:not(.flap) .invite-card {
+  transform: translateX(-50%) translateY(2%);
+  overflow-y: hidden;
+}
+
+/* Card content */
+
+.card-inner {
+  position: relative;
+  padding: 40px 32px;
+  text-align: center;
+  color: #24314f;
+  font-family: "Playfair display", cursive;
+  transition: opacity 1.5s ease-in;
+  opacity: 0;
+}
+
+.card-inner.text-visible {
+  opacity: 1;
+}
+
+.card-title {
+  font-family: 'Cormorant Garamond', cursive;
+	font-size: clamp(9px, 1.8vw, 13px);
+	letter-spacing: 5px; text-transform: initial;
+	color: var(--burgundy); margin-bottom: clamp(10px, 2vw, 18px); font-weight: 600;
+}
+
+.card-image {
+  width: 100%;
+  margin-bottom: 26px;
+}
+
+.card-image img {
+  width: 100%;
+  max-width: 320px;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  border-radius: 6px;
+}
+
+.card-name {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(22px, 6.5vw, 30px);
+  color: var(--env-navy); margin-bottom: clamp(4px, 1vw, 10px); line-height: 1.1;
+}
+
+.card-divider {
+	  display: flex; align-items: center; gap: 10px;
+	  margin: clamp(6px, 1.2vw, 12px) auto;
+	  width: 55%; max-width: 200px;
+	}
+.card-divider::before, .card-divider::after {
+  content: ""; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.card-divider-icon { font-size: clamp(11px, 1.8vw, 15px); }
+
+.card-date {
+	  font-size: clamp(13px, 2.6vw, 19px); font-weight: 600;
+	  color: var(--env-navy); margin-top: clamp(5px, 1vw, 9px); letter-spacing: 1px;
+	}
+
+.card-location {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(9px, 1.8vw, 13px); letter-spacing: 3px;
+  text-transform: uppercase; margin-top: clamp(3px, 0.8vw, 7px);
+  color: var(--env-navy); opacity: 0.6;
+}
+
+/* Countdown */
+.card-countdown {
+  display: flex; justify-content: center;
+  gap: clamp(6px, 1.8vw, 18px);
+  margin-top: clamp(10px, 2vw, 18px);
+  padding-top: clamp(8px, 1.6vw, 14px);
+  border-top: 1px solid rgba(201,168,76,0.25);
+}
+.countdown-unit { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.countdown-num {
+  font-size: clamp(16px, 3.5vw, 28px); font-weight: 700;
+  color: var(--burgundy); line-height: 1;
+}
+.countdown-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(6px, 1.2vw, 9px); letter-spacing: 2px;
+  text-transform: uppercase; color: var(--env-navy); opacity: 0.5;
+}
+.countdown-sep {
+  font-size: clamp(14px, 2.8vw, 22px); color: var(--gold);
+  opacity: 0.5; align-self: flex-start; margin-top: 2px;
+}
+
+/* Reveal inside when envelope opens */
+
+.envelope-wrapper.flap .envelope-inside {
+  opacity: 1;
+  transition-delay: 0s;
+}
+
+.envelope-wrapper:not(.flap) .envelope-inside {
+  opacity: 1;
+}
+
+.back-text {
+  font-size: 28px;
+  font-family: cursive;
+  font-weight: 600;
+  color: #800020; 
+  letter-spacing: 2px;
+}
+
+/* CREATE A WAX-SEAL */
+
+.wax-seal { 
+  width: 80px;
+  height: 80px; 
+  border-radius: 50%; 
+
+  background: 
+    radial-gradient(circle at 50% 50%, 
+    #f3e6cf 1%, 
+    #8b5a2b 10%,
+    #c79b2e 5%,
+    #5a3a1e 70%);
+    
+  box-shadow: 
+    inset -4px -6px 10px rgba(0,0,0,0.3), 
+    inset 3px 3px 6px rgba(255,255,255,0.2), 
+    0 6px 15px rgba(0,0,0,0.35); 
+
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  z-index: 7;
+}
+
+/* Edit Wax-Seal Texture Edges */
+
+.wax-seal::before { 
+  content: ""; 
+  position: relative; 
+  inset: -4px;
+  border-radius: 50%; 
+  background: 
+    radial-gradient(circle, rgba(255, 255, 255, 0.15), transparent 70%); 
+  filter: blur(2px); 
+}
+
+/* Wax-Seal Initials */
+
+.seal-mark { 
+  font-family: cursive; 
+  font-size: 24px; 
+  font-weight: 600; 
+  color: #f3e6cf; 
+  letter-spacing: 2px; 
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25); 
+}
+
+/* Position Wax-Seal on Envelope */
+
+.wax-seal {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Edit Wax-Seal by breaking it to open envelope */
+
+.wax-seal.break {
+  animation: waxBreak 1.6s ease forwards;
+}
+
+@keyframes waxBreak {
+  0% {
+    transform: translateX(-50%) scale(1);
+  }
+  40% {
+    transform: translateX(-50%) scale(1.1) rotate(3deg);
+  }
+  100% {
+    transform: translateX(-50%) scale(0) rotate(-10deg);
+    opacity: 0;
+  }
+}
+
+    /* Create Flap for envelope */
+
+.flap {
+  position: absolute; 
+
+  width: 100%;
+  height: 235px;
+
+  transform-origin: top center;
+  transform: rotateX(0deg) translateZ(1px);
+  transition: transform 2.6s ease-in-out;
+
+  backface-visibility: visible;
+  will-change: transform;
+  /*transform-style: preserve-3d;*/
+
+  z-index: 6;
+}
+
+/* Putting Words on the Flap of the Envelope */
+
+.flap-text {
+  position: absolute;
+  bottom: -10%; /* adjust as needed */
+  left: 50%; /* adjust as needed */
+  transform-origin: center top;
+
+  font-family: cursive; /* adjust as needed */
+  font-size: 35px; /* adjust as needed */
+  font-weight: 600; /* adjust as needed */
+  color: #fff;
+  text-align: center; /* adjust as needed */
+
+  pointer-events: none; /* text won't interfere with clicking the flap */
+  z-index: 4; /* ensure it's above the flap */
+
+  opacity: 0; 
+  visibility: hidden;
+  transform: translateX(-50%) translateY(-12px);
+  transition: 
+    opacity 0.4s ease, 
+    transform 0.4s ease,
+    visibility 0s linear 0.4s;
+}
+
+/* Create Flap to stop side drift */
+
+.flap-curve-text {
+  display: block;
+  width: 300px;
+  margin: 0 auto;
+}
+
+/* Envelope closes and show text */
+.envelope-wrapper:not(.flap) .flap-text {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+  transition-delay: 4.7s; /* matches flap close timing */
+}
+
+/* Envelope open and hides flap-text */
+
+.envelope-wrapper.flap .flap-text{
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(-12px);
+  transition-delay: 0s;
+}
+
+.flap-front {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.35),
+      rgba(0,0,0,0.2)
+    ),
+    var(--envelope-tab);
+
+  box-shadow:
+    inset 0 -6px 10px rgba(0,0,0,0.25),
+    0 6px 12px rgba(0,0,0,0.25);
+
+  clip-path: polygon(0 0%, 100% 0, 50% 100%);
+  backface-visibility: hidden;
+}
+
+/* Add a fold crease */
+
+.flap-front::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(0,0,0,0.25);
+  filter: blur(1px);
+}
+
+.flap-back {
+  position: absolute;
+  transform: rotateX(180deg);
+}
+
+.flap-inside {
+  position: absolute;
+  inset: 0;
+
+  background-size: cover;
+  background-position: center;
+
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  backface-visibility: hidden;
+}
+
+.envelope-wrapper.flap .flap {
+  transform: rotateX(-180deg) translateZ(1px);
+  z-index: 1;
+  transition: transform 2.6s ease-in-out, z-index 0s 1.3s;
+}
+
+.envelope-wrapper:not(.flap) .flap {
+  transform: rotateX(0deg);
+  transition: transform 2.6s ease-in-out, z-index 0s 3.5s;
+  transition-delay: 3.4s;
+}
+
+/* Block scrolling first */
+
+body.lock-scroll {
+  overflow: hidden;
+}
+
+/* ADD  RSVP CARD STYLES */
+
+.message-box{
+  margin-bottom: 20px;
+}
+
+.error-message{
+  background: #800020;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.deadline-text {
+    font-family: 'Georgia', serif; /* Or your preferred font */
+    font-size: 1.1rem;
+    color: #f6f6f6;
+    font-weight: bolder;
+    text-align: center;
+    flex-direction: column;
+    display: flex;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+.rsvp {
+  padding: 80px 10px;
+  background: #32233e;
+  text-align: center;
+  color: white;
+  border-radius: 40px;
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s ease;
+}
+
+.rsvp-question {
+  font-size: 20px;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  opacity: 0.9;
+}
+
+.rsvp.show {
+  opacity: 1;
+  transform: translateY(10px);
+}
+
+.rsvp form {
+  max-width: 400px;
+  margin: auto;
+}
+
+.rsvp input {
+  width: 70%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 6px;
+  border: none;
+}
+
+.choices {
+  width: 70%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 6px;
+  border: none;
+}
+
+button {
+  padding: 14px 30px;
+  border: none;
+  background: #800020;
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+} 
+
+/* RECENTLY ADDED */
+
+/* Petal Container */
+#petal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows clicking through petals to the RSVP form */
+    z-index: 9999; /* Keeps them above the envelope */
+    overflow: hidden;
+}
+
+/* Individual Petal Style */
+.petal {
+    position: absolute;
+    background-color: #ffc0cb; /* Soft Pink */
+    border-radius: 150% 0 150% 0; /* Petal Shape */
+    opacity: 0.8;
+    filter: blur(1px);
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-10vh) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% { opacity: 0.8; }
+    100% {
+        transform: translateY(110vh) translateX(100px) rotate(720deg);
+        opacity: 0;
+    }
+}
