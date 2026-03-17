@@ -90,9 +90,6 @@ body {
 
 /* =============================================
    PERSPECTIVE CONTAINER
-   — perspective is set HERE on the parent,
-     not on .envelope-wrapper, to prevent the
-     browser left-shift bug during 3D animation
    ============================================= */
 .perspective-container {
   perspective: 1200px;
@@ -106,7 +103,6 @@ body {
 
 /* =============================================
    ENVELOPE WRAPPER
-   — transform-style only, no perspective here
    ============================================= */
 .envelope-wrapper {
   position: relative;
@@ -700,5 +696,67 @@ button {
   .rsvp input,
   .choices {
     width: 75%;
+  }
+}
+
+/* =============================================
+   PHONE PORTRAIT (max 600px)
+   — only overrides needed for phone, everything
+     else stays exactly as desktop
+   ============================================= */
+@media (max-width: 600px) {
+
+  /* Flap text — wrap to two lines like desktop */
+  .flap-text {
+    font-size: 6.5vw;
+    width: 75%;
+    white-space: normal;
+    overflow-wrap: break-word;
+    line-height: 1.35;
+    text-align: center;
+  }
+
+  /* Card open height — taller so content fits */
+  .envelope-wrapper.flap .invite-card {
+    transform: translateX(-50%) translateY(-25%);
+    height: calc(var(--env-w) * 1.35);
+  }
+
+  /* Card inner padding */
+  .card-inner {
+    padding: 20px 16px;
+  }
+
+  /* Card title */
+  .card-title {
+    font-size: 3vw;
+    letter-spacing: 4px;
+  }
+
+  /* Card image */
+  .card-image img {
+    height: 28vw;
+  }
+
+  /* Card name */
+  .card-name {
+    font-size: 8vw;
+  }
+
+  /* Card date */
+  .card-date {
+    font-size: 4vw;
+  }
+
+  /* Card location */
+  .card-location {
+    font-size: 3vw;
+    letter-spacing: 2px;
+  }
+
+  /* RSVP inputs full width on phone */
+  .rsvp input,
+  .choices {
+    width: 88%;
   }
 }
