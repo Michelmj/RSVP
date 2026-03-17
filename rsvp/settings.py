@@ -22,7 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
-"django-insecure-y=3)o&rk7_$)uz7-&$gv(q7ki$7^i36^+tr_fpm$3i-ll%*)00"
+
+#"django-insecure-y=3)o&rk7_$)uz7-&$gv(q7ki$7^i36^+tr_fpm$3i-ll%*)00"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
@@ -136,9 +137,11 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+"""
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR / 'static'),
 ] 
+"""
 
 """     
 SECURE_BROWSER_XSS_FILTER = True
