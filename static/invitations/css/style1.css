@@ -38,8 +38,8 @@ body {
   padding: 0;
   background: #f3eee6;
   overflow-y: scroll;
-  overflow: hidden;
-  overflow-y: auto;
+  /*overflow: hidden;
+  overflow-y: auto;*/
 }
 
 /* =============================================
@@ -251,7 +251,7 @@ body {
   margin-bottom: clamp(10px, 2.5vw, 26px);
 }
 
-/* .card-image img {
+.card-image img {
   width: 100%;
   max-width: 320px;
   height: clamp(70px, 16vw, 160px);
@@ -259,16 +259,16 @@ body {
   display: block;
   margin: 0 auto;
   border-radius: 6px;
-} */
+} 
 
-/* REPLACED ABOVE CODE */
+/* REPLACED ABOVE CODE 
 
 .card-image img {
   width: 100%;
   height: auto;
   max-height: 180px;
   object-fit: cover;
-}
+}*/
 
 .card-name {
   font-family: 'Great Vibes', cursive;
@@ -667,9 +667,11 @@ button {
   }
 }
 
+
 /* =============================================
    LANDSCAPE PHONES (short screens)
    ============================================= */
+/*
 @media (max-height: 500px) and (orientation: landscape) {
   .stage-envelope {
     padding-top: clamp(20px, 5vh, 40px);
@@ -691,7 +693,7 @@ button {
   }
 }
 
-/* MOBILE */
+/* MOBILE 
 
 @media (max-width: 600px) {
 
@@ -731,7 +733,7 @@ button {
   }
 }
 
-/* TABLETS/IPAD */
+/* TABLETS/IPAD 
 
 @media (min-width: 601px) and (max-width: 1024px) {
 
@@ -757,7 +759,7 @@ button {
   }
 }
 
-/* DESKTOP */
+/* DESKTOP 
 
 @media (min-width: 1025px) {
 
