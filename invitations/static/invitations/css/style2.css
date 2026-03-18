@@ -466,9 +466,9 @@ body {
 
 .flap-text {
   position: absolute;
-  top: 15%;
-  left: 10%;
-  right: 10%;
+  top: 18%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-12px);
   width: 80%;
   transform-origin: center top;
   font-family: cursive;
@@ -483,7 +483,6 @@ body {
   z-index: 4;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-12px);
   transition:
     opacity 0.4s ease,
     transform 0.4s ease,
@@ -500,14 +499,14 @@ body {
 .envelope-wrapper:not(.flap) .flap-text {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
+  transform: translateX(-50%) translateY(0);
   transition-delay: 4.7s;
 }
 
 .envelope-wrapper.flap .flap-text {
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-12px);
+  transform: translateX(-50%) translateY(-12px);
   transition-delay: 0s;
 }
 
