@@ -466,29 +466,24 @@ body {
 
 .flap-text {
   position: absolute;
-  top: 25%;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  width: 80%;
-  transform-origin: center top;
+  bottom: -7%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
   font-family: cursive;
-  font-size: clamp(16px, 5vw, 30px);
+  font-size: clamp(12px, 2.5vw, 22px);
   font-weight: 600;
+  letter-spacing: 2px;
   color: #fff;
   text-align: center;
-  white-space: normal;
-  overflow-wrap: break-word;
-  line-height: 1.4;
+  white-space: nowrap;
   pointer-events: none;
-  z-index: 7;
+  z-index: 5;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-12px);
   transition:
-    opacity 0.4s ease,
-    transform 0.4s ease,
-    visibility 0s linear 0.4s;
+    opacity 0.5s ease,
+    transform 0.5s ease,
+    visibility 0s linear 0.5s;
 }
 
 .flap-curve-text {
@@ -501,14 +496,14 @@ body {
 .envelope-wrapper:not(.flap) .flap-text {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
+  transform: translateX(-50%) translateY(0);
   transition-delay: 4.7s;
 }
 
 .envelope-wrapper.flap .flap-text {
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-12px);
+  transform: translateX(-50%) translateY(-10px);
   transition-delay: 0s;
 }
 
