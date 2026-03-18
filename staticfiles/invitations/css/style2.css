@@ -11,16 +11,15 @@
   --txt-color: #444;
   --seal-ocean: rgb(252, 8, 231);
 
-  /* Fluid envelope dimensions — always 90% of viewport, max 500px */
   --env-w: min(500px, 88vw);
-  --env-h: calc(var(--env-w) * 0.668); /* preserves 500:334 ratio */
+  --env-h: calc(var(--env-w) * 0.668);
   --env-half: calc(var(--env-w) / 2);
-  --flap-h: calc(var(--env-h) * 0.704); /* preserves 235/334 ratio */
-  --card-w: calc(var(--env-w) * 0.80);  /* preserves 400/500 ratio */
-  --card-bottom: calc(var(--env-h) * 0.246); /* preserves 82/334 ratio */
-  --seal-size: calc(var(--env-w) * 0.16); /* preserves 80/500 ratio */
+  --flap-h: calc(var(--env-h) * 0.704);
+  --card-w: calc(var(--env-w) * 0.80);
+  --card-bottom: calc(var(--env-h) * 0.246);
+  --seal-size: calc(var(--env-w) * 0.16);
   --seal-bottom: calc(var(--env-h) * 0.24);
-  --card-open-h: calc(var(--env-w) * 1.06); /* preserves 530/500 ratio */
+  --card-open-h: calc(var(--env-w) * 1.1);
 }
 
 /* =============================================
@@ -46,7 +45,7 @@ body {
    ============================================= */
 .container {
   min-height: auto;
-  margin-top: clamp(40px, 8vw, 280px);
+  margin-top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,22 +63,25 @@ body {
 
 .stage-envelope {
   position: relative;
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: clamp(30px, 6vw, 250px);
-  padding-bottom: clamp(30px, 6vw, 60px);
-  min-height: auto;
+  min-height: 100vh;
+  padding-top: clamp(60px, 10vh, 120px);
+  padding-bottom: clamp(60px, 10vh, 120px);
 }
 
 .stage-back,
 .stage-rsvp {
   align-items: center;
-  padding-top: 50vh;
+  min-height: 100vh;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .stage-rsvp {
-  padding-top: 30vh;
-  padding-bottom: 20vh;
+  padding-top: clamp(40px, 8vw, 80px);
+  padding-bottom: clamp(40px, 8vw, 80px);
 }
 
 .stage-back {
@@ -89,16 +91,26 @@ body {
 }
 
 /* =============================================
+   PERSPECTIVE CONTAINER
+   ============================================= */
+.perspective-container {
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+  width: var(--env-w);
+  height: var(--env-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =============================================
    ENVELOPE WRAPPER
-   — centered with margin:auto, no absolute top
    ============================================= */
 .envelope-wrapper {
   position: relative;
-  margin: 0 auto;
   width: var(--env-w);
   height: var(--env-h);
   filter: drop-shadow(0 30px 45px rgba(0, 0, 0, 0.35));
-  perspective: 1200px;
   transform-style: preserve-3d;
   z-index: 10;
 }
@@ -113,6 +125,7 @@ body {
   height: 40px;
   background: radial-gradient(ellipse, rgba(0,0,0,0.35), transparent 70%);
   transform: translateX(-50%);
+  pointer-events: none;
 }
 
 /* =============================================
@@ -136,7 +149,7 @@ body {
   border-radius: 6px;
 }
 
-/* Bottom triangle — fluid border widths */
+/* Bottom triangle */
 .envelope::after {
   content: ' ';
   position: absolute;
@@ -229,7 +242,6 @@ body {
   overflow-y: hidden;
 }
 
-/* Card content */
 .card-inner {
   position: relative;
   padding: clamp(16px, 4vw, 40px) clamp(12px, 3vw, 32px);
@@ -456,28 +468,30 @@ body {
 
 .flap-text {
   position: absolute;
-  bottom: -10%;
+  top: 15%;
   left: 50%;
-  transform-origin: center top;
+  transform: translateX(-50%) translateY(-10px);
   font-family: cursive;
-  font-size: clamp(16px, 5vw, 35px);
+  font-size: clamp(24px, 5vw, 35px);
   font-weight: 600;
+  letter-spacing: 2px;
   color: #fff;
   text-align: center;
+  white-space: nowrap;
   pointer-events: none;
-  z-index: 4;
+  z-index: 8;
   opacity: 0;
   visibility: hidden;
-  transform: translateX(-50%) translateY(-12px);
   transition:
-    opacity 0.4s ease,
-    transform 0.4s ease,
-    visibility 0s linear 0.4s;
+    opacity 0.5s ease,
+    transform 0.5s ease,
+    visibility 0s linear 0.5s;
 }
 
 .flap-curve-text {
   display: block;
-  width: clamp(140px, 50vw, 300px);
+  width: 100%;
+  max-width: 300px;
   margin: 0 auto;
 }
 
@@ -491,7 +505,7 @@ body {
 .envelope-wrapper.flap .flap-text {
   opacity: 0;
   visibility: hidden;
-  transform: translateX(-50%) translateY(-12px);
+  transform: translateX(-50%) translateY(-10px);
   transition-delay: 0s;
 }
 
@@ -666,12 +680,12 @@ button {
 }
 
 /* =============================================
-   LANDSCAPE PHONES (very short screens)
+   LANDSCAPE PHONES
    ============================================= */
 @media (max-height: 500px) and (orientation: landscape) {
   .stage-envelope {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: clamp(120px, 25vw, 220px);
+    padding-bottom: 40px;
   }
 
   .stage-back,
@@ -688,3 +702,66 @@ button {
     width: 75%;
   }
 }
+
+/* =============================================
+   PHONE PORTRAIT (max 600px)
+   — only overrides needed for phone, everything
+     else stays exactly as desktop
+   ============================================= */
+@media (max-width: 600px) {
+
+  /* Flap text — bigger on phone */
+  .flap-text {
+    font-size: clamp(22px, 6vw, 30px);
+    white-space: nowrap;
+    letter-spacing: 1px;
+  }
+
+
+
+  /* Card open height — just peeking out like desktop */
+  .envelope-wrapper.flap .invite-card {
+    transform: translateX(-50%) translateY(2%);
+    height: calc(var(--env-w) * 1.2);
+  }
+
+  /* Card inner padding */
+  .card-inner {
+    padding: 20px 16px;
+  }
+
+  /* Card title */
+  .card-title {
+    font-size: 3vw;
+    letter-spacing: 4px;
+  }
+
+  /* Card image */
+  .card-image img {
+    height: 28vw;
+  }
+
+  /* Card name */
+  .card-name {
+    font-size: 8vw;
+  }
+
+  /* Card date */
+  .card-date {
+    font-size: 4vw;
+  }
+
+  /* Card location */
+  .card-location {
+    font-size: 3vw;
+    letter-spacing: 2px;
+  }
+
+  /* RSVP inputs full width on phone */
+  .rsvp input,
+  .choices {
+    width: 88%;
+  }
+}
+
+/* cache-bust: 1773788318 */
