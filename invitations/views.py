@@ -56,7 +56,7 @@ def invited(request):
 
         # Email to you
         send_email(
-            to_email='seph.n.mario@gmail.com',
+            to_email='phi.jim@hotmail.com',
             subject='New RSVP Submission',
             body=f"""
 New RSVP Received
