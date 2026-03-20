@@ -1,19 +1,23 @@
 import os
+import json
 import gspread
-from django.conf import settings
 from oauth2client.service_account import ServiceAccountCredentials
 
 
 def append_to_google_sheet(name, spouse, email, number, response):
-    # Setup credentials
-    scope = ["https://spreadsheets.google.com"]
-    
-    creds_path = os.path.join(settings.BASE_DIR, 'credentials.json')
-    creds = ServiceAccountCredentials.from_json_keyfile_name(creds_path, scope)
+    scope = [
+        "https://spreadsheets.google.com/feeds",
+        "https://www.googleapis.com/auth/drive"
+    ]
+
+    # Read credentials from environment variable
+    creds_json = os.environ.get('GOOGLE_CREDENTIALS')
+    creds_dict = json.loads(creds_json)
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
     client = gspread.authorize(creds)
 
-    # Open the sheet by its name
+    # Open the sheet
     sheet = client.open("SephoMario").worksheet("rsvp")
-    
+
     # Append the row
-    sheet.append_row([name, email, number, response])
+    sheet.append_row([name, spouse, email, number, response])

@@ -6,6 +6,7 @@ from django.db import IntegrityError
 import os
 import sendgrid
 from sendgrid.helpers.mail import Mail
+from .services import append_to_google_sheet
 
 
 def send_email(to_email, subject, body):
@@ -46,6 +47,12 @@ def invited(request):
         except IntegrityError:
             messages.error(request, "An RSVP has already been submitted with this email or phone number.")
             return redirect('home')
+
+        # Save to Google Sheet
+        try:
+            append_to_google_sheet(name, spouse, email, number, response)
+        except Exception as e:
+            print(f"Google Sheets error: {e}")
 
         # Email to you
         send_email(
