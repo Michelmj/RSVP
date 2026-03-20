@@ -765,3 +765,147 @@ button {
 }
 
 /* cache-bust: 1773788318 */
+
+/* =============================================
+   SCROLL INDICATOR
+   ============================================= */
+.scroll-indicator {
+  position: absolute;
+  bottom: clamp(20px, 5vw, 40px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease, visibility 0s linear 0.8s;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.scroll-indicator.show {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.8s ease;
+}
+
+.scroll-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(11px, 2.5vw, 14px);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--envelope-cover);
+  opacity: 0.7;
+}
+
+.scroll-arrow {
+  width: clamp(22px, 5vw, 30px);
+  height: clamp(22px, 5vw, 30px);
+  color: var(--envelope-cover);
+  opacity: 0.7;
+  animation: bounceDown 1.5s ease-in-out infinite;
+}
+
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(8px); }
+}
+
+/* =============================================
+   CLICK TO OPEN HINT
+   ============================================= */
+.click-hint {
+  position: absolute;
+  bottom: clamp(20px, 5vw, 40px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+  z-index: 20;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease, visibility 0s linear 0s;
+}
+
+.click-hint.hide {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+}
+
+.click-hint-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(11px, 2.5vw, 14px);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--envelope-cover);
+  opacity: 0.7;
+  animation: hintPulse 2s ease-in-out infinite;
+}
+
+.click-hint-icon {
+  font-size: clamp(18px, 4vw, 24px);
+  animation: hintBounce 1.6s ease-in-out infinite;
+}
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 0.85; }
+}
+
+@keyframes hintBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(5px); }
+}
+
+/* =============================================
+   SCROLL TO EXPLORE INDICATOR
+   ============================================= */
+.scroll-indicator {
+  position: absolute;
+  bottom: clamp(20px, 5vw, 40px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease, visibility 0s linear 0.8s;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.scroll-indicator.show {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.8s ease;
+}
+
+.scroll-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(11px, 2.5vw, 14px);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--envelope-cover);
+  opacity: 0.7;
+}
+
+.scroll-arrow {
+  width: clamp(22px, 5vw, 32px);
+  height: clamp(22px, 5vw, 32px);
+  color: var(--envelope-cover);
+  opacity: 0.7;
+  animation: bounceDown 1.5s ease-in-out infinite;
+}
+
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(8px); }
+}
