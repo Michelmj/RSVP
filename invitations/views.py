@@ -88,4 +88,8 @@ Sephora & Mario
 
 
 def thank_you(request):
-    return render(request, 'invitations/thank_you.html')
+    # Get all guests who accepted, ordered by submission date
+    accepted_guests = rsvp.objects.filter(response='accepts').order_by('submittedat')
+    return render(request, 'invitations/thank_you.html', {
+        'accepted_guests': accepted_guests
+    })
