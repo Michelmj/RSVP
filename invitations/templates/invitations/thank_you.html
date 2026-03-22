@@ -97,6 +97,13 @@
       letter-spacing: 0.5px;
     }
 
+    .guest-list li .spouse {
+      font-size: clamp(12px, 2.5vw, 14px);
+      color: #800020;
+      font-style: italic;
+      opacity: 0.8;
+    }
+
     .guest-count {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(12px, 2.5vw, 14px);
@@ -121,11 +128,8 @@
       transition: opacity 0.3s ease;
     }
 
-    .back-link:hover {
-      opacity: 1;
-    }
+    .back-link:hover { opacity: 1; }
 
-    /* Petal animation from main page */
     #petal-container {
       position: fixed;
       top: 0; left: 0;
@@ -165,7 +169,12 @@
         <p class="guest-list-title">Joining the Celebration</p>
         <ul class="guest-list">
           {% for guest in accepted_guests %}
-            <li>{{ guest.name }}</li>
+            <li>
+              {{ guest.name }}
+              {% if guest.spouse_name %}
+                <span class="spouse"> & {{ guest.spouse_name }}</span>
+              {% endif %}
+            </li>
           {% endfor %}
         </ul>
         <p class="guest-count">{{ accepted_guests|length }} guest{{ accepted_guests|length|pluralize }} attending so far</p>

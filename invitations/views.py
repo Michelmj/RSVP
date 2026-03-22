@@ -22,11 +22,19 @@ def send_email(to_email, subject, body):
 
 
 def home(request):
+    # If already submitted, redirect to thank you page
+    if request.session.get('rsvp_submitted'):
+        return redirect('thank_you')
     return render(request, 'invitations/invite.html')
 
 
 def invited(request):
     if request.method == 'POST':
+
+        # Check session first
+        if request.session.get('rsvp_submitted'):
+            return redirect('thank_you')
+
         name = request.POST.get('name')
         spouse = request.POST.get('spouse_name')
         email = request.POST.get('email')
@@ -43,8 +51,12 @@ def invited(request):
             )
 
         except IntegrityError:
-            messages.error(request, "An RSVP has already been submitted with this email or phone number.")
+            messages.error(request, "An RSVP has already been submitted with this email address.")
             return redirect('home')
+
+        # Mark as submitted in session
+        request.session['rsvp_submitted'] = True
+        request.session.set_expiry(0)  # expires when browser closes
 
         # Save to Google Sheet
         try:
