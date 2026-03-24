@@ -52,14 +52,17 @@ def invited(request):
             messages.error(request, "An RSVP has already been submitted with this email address.")
             return redirect('home')
 
+        # Mark as submitted in session
         request.session['rsvp_submitted'] = True
         request.session.set_expiry(0)
 
+        # Save to Google Sheet
         try:
             append_to_google_sheet(name, spouse, email, number, response)
         except Exception as e:
             print(f"Google Sheets error: {e}")
 
+        # Email to you
         send_email(
             to_email='seph.n.mario@gmail.com',
             subject='New RSVP Submission',
@@ -74,32 +77,50 @@ Response: {response}
 """
         )
 
-        send_email(
-            to_email=email,
-            subject='Thank You for Your RSVP',
-            body=f"""
+        # Email to guest
+        if response == 'accepts':
+            send_email(
+                to_email=email,
+                subject='Thank You for Your RSVP',
+                body=f"""
 Dear {name},
 
-Thank you for your RSVP!
-Your response: {response}
+Thank you for your RSVP! We are so happy you will be joining us.
+Your response: Joyfully Accepts
 
 Warm regards,
 Sephora & Mario
 """
-        )
+            )
+            return redirect('thank_you')
 
-        return redirect('thank_you')
+        else:
+            send_email(
+                to_email=email,
+                subject='Thank You for Letting Us Know',
+                body=f"""
+Dear {name},
+
+Thank you for letting us know you are unfortunately unable to make it!
+You will be in our thoughts on our special day.
+
+Warm regards,
+Sephora & Mario
+"""
+            )
+            return redirect('decline')
 
     return redirect('home')
 
 
 def thank_you(request):
     accepted_guests = rsvp.objects.filter(response='accepts').order_by('submittedat')
-
-    # Count total people (guest + spouse if they have one)
     total_people = sum(2 if guest.spouse_name else 1 for guest in accepted_guests)
-
     return render(request, 'invitations/thank_you.html', {
         'accepted_guests': accepted_guests,
         'total_people': total_people,
     })
+
+
+def decline(request):
+    return render(request, 'invitations/decline.html')
